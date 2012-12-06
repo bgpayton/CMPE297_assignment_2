@@ -1,0 +1,70 @@
+ubuntu@ubuntu-ThinkPad-T60:~/SJSU/CMPE_279/Assignment2/mongo_app$ curl -i http://localhost:4567/cmpe297-assignment2
+
+
+HTTP/1.1 200 OK
+Content-Type: text/html;charset=utf-8
+Content-Length: 48
+X-XSS-Protection: 1; mode=block
+X-Frame-Options: sameorigin
+Connection: keep-alive
+Server: thin 1.5.0 codename Knife
+
+
+<html>
+Hello World!
+<p>
+<p>2012-12-6 = 1</html>
+
+ubuntu@ubuntu-ThinkPad-T60:~/SJSU/CMPE_279/Assignment2/mongo_app$ vmc push
+Name> hello_mongo
+
+Instances> 1
+
+1: sinatra
+2: other
+Framework> sinatra
+
+1: ruby18
+2: ruby19
+3: other
+Runtime> 1
+
+1: 64M
+2: 128M
+3: 256M
+4: 512M
+5: 1G
+Memory Limit> 128M
+
+Creating hello_mongo... OK
+
+1: hello_mongo.bgpayton.cloudfoundry.me
+2: none
+URL> hello_mongo.bgpayton.cloudfoundry.me
+
+Updating hello_mongo... OK
+
+Create services for application?> y
+
+1: mongodb 2.0
+2: mysql 5.1
+3: postgresql 9.0
+4: rabbitmq 2.4
+5: redis 2.2
+What kind?> 1
+
+Name?> mongodb-b1e19
+
+Creating service mongodb-b1e19... OK
+Binding mongodb-b1e19 to hello_mongo... OK
+Create another service?> n
+
+Bind other services to application?> n
+
+Save configuration?> n
+
+Uploading hello_mongo... OK
+Starting hello_mongo... OK
+Checking hello_mongo... GAVE UP
+Application failed to start.
+
