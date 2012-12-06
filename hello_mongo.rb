@@ -4,22 +4,13 @@ require "sinatra"
 require "mongo"
 require "mongo_mapper"
 
-MongoMapper.connection = Mongo::Connection.new(mongo_connection_info)
+host = JSON.parse(ENV['VCAP_SERVICES'])['mongodb-2.0'].first['credentials']['hostname'] rescue 'localhost'
+port = JSON.parse( ENV['VCAP_SERVICES'] )['mongodb-2.0'].first['credentials']['port'] rescue 27017
+mongo_uri = 'mongodb://' + host + ':' + port.to_s
+
+MongoMapper.connection = Mongo::Connection.from_uri(mongo_uri)
 MongoMapper.database = 'pageStats'
 
-# find our mongo connection info
-def mongo_connection_info
-  services = JSON.parse(ENV['VCAP_SERVICES'])
-  services.each do |service_version, bindings|
-    bindings.each do |binding|
-      if binding['label'] =~ /mongo/i
-        res = binding['credentials']
-        return res
-      end
-    end
-  end
-  raise "could not find connection info"
-end
 
 class PageHit
   include MongoMapper::Document
